@@ -22,7 +22,7 @@ void main()
 
 	fread(&n,sizeof(n),1,f);
 
-
+	//Hello world!
 
 
 
