@@ -1,0 +1,72 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <fstream>
+#include <time.h>
+
+using namespace std;
+
+char* names[] ={"athlon   ", "celeron  ", "sampron  ", "pencium", "RISC ", "VLIW  "};
+char* card_type[] = {"AMD   ","RADEON  ","ATI","FX   "};
+
+#define names_count 6
+#define card_count 4
+
+
+typedef struct{
+	char name[256];
+	char money[256];
+	int clock;
+	int memory;
+} computer;
+
+
+typedef struct comp{
+	computer system;
+	struct comp* next;
+}items;
+
+
+void main()
+{
+	setlocale(LC_ALL, "rus");
+	srand(time(NULL));
+	int n;
+	printf("Количество компьютеров:\n");
+	scanf("%d", &n);
+	items *list= new items;
+
+	FILE* f;
+
+	f=fopen("text.txt","wt");
+	fwrite(&n, sizeof(int),1, f);
+	for (int i = 0; i < n; ++i) 
+	{
+		strcpy(list->system.name,names[rand()%names_count]);
+
+		strcpy(list->system.money,card_type[rand()%card_count]);
+		list->system.clock = rand()%10000+1;
+		list->system.memory = rand()%15+1;
+
+
+
+		list->next= new items;
+		list->next->next=NULL;
+
+
+
+		fwrite(&(list->system),sizeof(list->system),1,f);
+		
+
+
+		printf("Тип процессора: %s\t Тип видеокарты: %s\nТактовая частота: %dGz\t Объем жесткого диска: %dGb\n\n",list->system.name,list->system.money,list->system.clock, list->system.memory); 
+		list=list->next;
+
+
+	}
+
+	delete list -> next;
+	list->next =NULL;
+	fclose(f);
+	system("PAUSE");
+
+}
