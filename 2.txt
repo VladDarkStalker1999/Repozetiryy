@@ -1,0 +1,43 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+typedef struct{
+	char name[256];
+	char money[256];
+	int clock;
+	int memory;
+} computer;
+
+
+void main()
+{
+	setlocale(LC_ALL, "rus");
+	FILE* f;
+	int i=0,n=0;
+	computer* arr=NULL;
+	f=fopen("text.txt", "rt");
+
+	fread(&n,sizeof(n),1,f);
+
+
+
+
+
+	for (i=0;i<n;i++)
+	{
+		arr=(computer*)malloc(n*sizeof(computer));
+
+		fread(&(arr[i]),sizeof(computer),1,f);
+		printf("Тип процессора: %s\t Тип видеокарты: %s\nТактовая частота: %dGz\t Объем жесткого диска: %dGb\n\n",arr[i].name,arr[i].money,arr[i].clock, arr[i].memory);
+		
+	}	
+
+
+	fclose(f);
+	system("PAUSE");
+}
+
+
